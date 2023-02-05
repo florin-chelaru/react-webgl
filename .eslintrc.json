@@ -29,6 +29,8 @@
     "@typescript-eslint/no-unused-vars": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/no-extraneous-class": "off",
+    "react/display-name": "off",
+    "spaced-comment": "off",
     // Needed for react-three-fiber non-standard properties
     "react/no-unknown-property": "off",
     "@typescript-eslint/no-non-null-assertion": "off"
