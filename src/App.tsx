@@ -1,8 +1,8 @@
 import React from 'react'
-import FirstCanvas from './components/FirstCanvas'
+import Game from './components/Game'
 
 function App() {
-  return <FirstCanvas />
+  return <Game />
 }
 
 export default App

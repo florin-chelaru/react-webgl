@@ -4,11 +4,9 @@ export function getVertices(geometry: THREE.BufferGeometry): THREE.Vector3[] {
   // Idea from: https://stackoverflow.com/questions/69720682/vertices-does-not-exist-on-type-buffergeometry-in-threejs
   const position = geometry.getAttribute('position') as THREE.BufferAttribute
 
-  return Array.from({ length: position.count }, (_, i) => {
-    const v = new THREE.Vector3().fromBufferAttribute(position, i)
-    console.log(v.toArray())
-    return v
-  })
+  return Array.from({ length: position.count }, (_, i) =>
+    new THREE.Vector3().fromBufferAttribute(position, i)
+  )
 }
 
 export function updateVertices(geometry: THREE.BufferGeometry, vertices: THREE.Vector3[]) {

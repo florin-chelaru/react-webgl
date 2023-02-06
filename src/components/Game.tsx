@@ -2,9 +2,8 @@ import React from 'react'
 import { Canvas } from '@react-three/fiber'
 import World from './World'
 import { PerspectiveCamera } from '@react-three/drei'
-import { Colors } from '../util/Colors'
 
-export default function FirstCanvas() {
+export default function Game() {
   console.log('rendering first canvas')
 
   const width = 800
@@ -14,14 +13,16 @@ export default function FirstCanvas() {
   return (
     <Canvas shadows="soft">
       <PerspectiveCamera makeDefault fov={60} near={1} far={10000} position={[0, 100, 200]} />
-      <hemisphereLight args={[Colors.yellow, 0x000000, 0.9]} />
+      <hemisphereLight groundColor={0x000000} color={0xaaaaaa} intensity={0.5} />
+      <ambientLight args={[0xdc8874, 0.5]} />
       <directionalLight
-        args={[0xffffff, 0.9]}
+        color={0xffffff}
+        intensity={2}
         position={[150, 350, 350]}
         castShadow={true}
         shadow-camera-left={-400}
         shadow-camera-right={400}
-        shadow-camera-top={400}
+        shadow-camera-top={1000}
         shadow-camera-bottom={-400}
         shadow-camera-near={1}
         shadow-camera-far={1000}
@@ -29,8 +30,7 @@ export default function FirstCanvas() {
         shadow-mapSize-height={2048}
       />
 
-      <fog attach="fog" color={Colors.yellow} near={100} far={950} />
-      {/* <fog attach="fog" color="0xf7d9aa" near={100} far={950} /> */}
+      <fog attach="fog" args={[0xf7d9aa, 100, 950]} />
       {/* <axesHelper args={[5]} /> */}
       <World />
     </Canvas>

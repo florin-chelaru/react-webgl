@@ -11,11 +11,11 @@ const Sky = React.forwardRef<THREE.Mesh, ThreeElements['mesh']>((props, ref) => 
       {Array.from({ length: nClouds }, (_, i) => {
         const a = stepAngle * i
         const h = 750 + Math.random() * 200
-        const s = 1 + Math.random() * 2
+        const s = Math.random() * 2
         return (
           <Cloud
             key={`cloud-${i}`}
-            position={[Math.cos(a) * h, Math.sin(a) * h, -400 - Math.random() * 400]}
+            position={[Math.cos(a) * h, Math.sin(a) * h, 100 - Math.random() * 400]}
             rotation-z={a + Math.PI / 2}
             scale={[s, s, s]}
           />

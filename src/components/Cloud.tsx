@@ -24,7 +24,7 @@ export default function Cloud(props: ThreeElements['mesh']) {
             castShadow={true}
             receiveShadow={true}>
             <boxGeometry args={[20, 20, 20]} />
-            <meshPhongMaterial color={Colors.yellow} />
+            <meshPhongMaterial color={Colors.white} />
           </mesh>
         )
       })}
