@@ -1,18 +1,43 @@
-import { type ThreeElements, useFrame } from '@react-three/fiber'
+import { extend, type Object3DNode, type ThreeElements, useFrame } from '@react-three/fiber'
 import React, { useRef } from 'react'
 import { Colors } from '../util/Colors'
-import type THREE from 'three'
+import * as THREE from 'three'
+import { ConvexGeometry } from 'three/examples/jsm/geometries/ConvexGeometry'
+import Pilot from './Pilot'
+
+extend({ ConvexGeometry })
+
+// Add types to ThreeElements elements so primitives pick up on it
+declare module '@react-three/fiber' {
+  interface ThreeElements {
+    convexGeometry: Object3DNode<ConvexGeometry, typeof ConvexGeometry>
+  }
+}
 
 const Airplane = React.forwardRef<THREE.Mesh, ThreeElements['mesh']>((props, ref) => {
   const propellerRef = useRef<THREE.Mesh>(null!)
 
-  useFrame((state, delta) => (propellerRef.current.rotation.x += 0.3))
+  useFrame(() => propellerRef.current && (propellerRef.current.rotation.x += 0.3))
 
   return (
     <mesh ref={ref} {...props} castShadow={true} receiveShadow={true}>
       {/*  Cabin  */}
       <mesh castShadow={true} receiveShadow={true}>
-        <boxGeometry args={[60, 50, 50, 1, 1, 1]} />
+        <convexGeometry
+          args={[
+            [
+              [40, 25, 25],
+              [40, 25, -25],
+              [-40, 15, -5],
+              [-40, 15, 5],
+
+              [-40, 5, 5],
+              [-40, 5, -5],
+              [40, -25, -25],
+              [40, -25, 25]
+            ].map((v) => new THREE.Vector3(v[0], v[1], v[2]))
+          ]}
+        />
         <meshPhongMaterial color={Colors.red} flatShading={true} />
       </mesh>
       {/*  Engine  */}
@@ -40,6 +65,7 @@ const Airplane = React.forwardRef<THREE.Mesh, ThreeElements['mesh']>((props, ref
           <meshPhongMaterial color={Colors.brownDark} flatShading={true} />
         </mesh>
       </mesh>
+      <Pilot position={[-10, 27, 0]} />
     </mesh>
   )
 })

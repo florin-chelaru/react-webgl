@@ -8,7 +8,6 @@ export default function Cloud(props: ThreeElements['mesh']) {
 
   const ref = useRef<THREE.Mesh>(null!)
   useEffect(() => {
-    console.log('using effect')
     ref.current.rotateX(Math.PI / 2)
   }, [])
   return (
