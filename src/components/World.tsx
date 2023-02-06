@@ -10,8 +10,7 @@ function normalize(v: number, vmin: number, vmax: number, tmin: number, tmax: nu
   const dv = vmax - vmin
   const pc = (nv - vmin) / dv
   const dt = tmax - tmin
-  const tv = tmin + pc * dt
-  return tv
+  return tmin + pc * dt
 }
 
 export default function World() {
@@ -19,7 +18,7 @@ export default function World() {
   const seaRef = useRef<THREE.Mesh>(null)
   const skyRef = useRef<THREE.Mesh>(null)
 
-  useFrame((state, delta) => {
+  useFrame((state, _delta) => {
     // update the airplane's position
     if (airplaneRef.current) {
       // let's move the airplane between -100 and 100 on the horizontal axis,
@@ -29,20 +28,17 @@ export default function World() {
 
       const targetX = normalize(state.mouse.x, -0.75, 0.75, -100, 100)
       const targetY = normalize(state.mouse.y, -0.75, 0.75, 25, 175)
-      airplaneRef.current.position.y = targetY
       airplaneRef.current.position.x = targetX
+      airplaneRef.current.position.y = targetY
     }
 
     if (seaRef.current) {
-      seaRef.current.rotation.z += 0.001
+      seaRef.current.rotation.z += 0.005
     }
     if (skyRef.current) {
-      skyRef.current.rotation.z += 0.002
+      skyRef.current.rotation.z += 0.01
     }
   })
-
-  // const scene = useThree((state) => state.scene)
-  // scene.fog = new THREE.Fog()
 
   return (
     <>

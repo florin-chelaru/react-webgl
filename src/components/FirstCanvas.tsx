@@ -2,7 +2,6 @@ import React from 'react'
 import { Canvas } from '@react-three/fiber'
 import World from './World'
 import { PerspectiveCamera } from '@react-three/drei'
-import * as THREE from 'three'
 import { Colors } from '../util/Colors'
 
 export default function FirstCanvas() {
@@ -13,9 +12,8 @@ export default function FirstCanvas() {
   console.log(width, height)
 
   return (
-    <Canvas shadows={{ type: THREE.BasicShadowMap }}>
+    <Canvas shadows="soft">
       <PerspectiveCamera makeDefault fov={60} near={1} far={10000} position={[0, 100, 200]} />
-      {/* <ambientLight intensity={0.5} /> */}
       <hemisphereLight args={[Colors.yellow, 0x000000, 0.9]} />
       <directionalLight
         args={[0xffffff, 0.9]}
