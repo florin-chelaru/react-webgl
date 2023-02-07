@@ -4,7 +4,7 @@ import Cloud from './Cloud'
 import type THREE from 'three'
 
 const Sky = React.forwardRef<THREE.Mesh, ThreeElements['mesh']>((props, ref) => {
-  const nClouds = 20
+  const nClouds = 100
   const stepAngle = (Math.PI * 2) / nClouds
   return (
     <mesh {...props} receiveShadow={true} castShadow={true} ref={ref}>
@@ -15,7 +15,7 @@ const Sky = React.forwardRef<THREE.Mesh, ThreeElements['mesh']>((props, ref) => 
         return (
           <Cloud
             key={`cloud-${i}`}
-            position={[Math.cos(a) * h, Math.sin(a) * h, 100 - Math.random() * 400]}
+            position={[Math.cos(a) * h, Math.sin(a) * h, 300 - Math.random() * 400]}
             rotation-z={a + Math.PI / 2}
             scale={[s, s, s]}
           />
