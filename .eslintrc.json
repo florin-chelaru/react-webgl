@@ -35,7 +35,8 @@
     // Needed for react-three-fiber non-standard properties
     "react/no-unknown-property": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
-    "no-undef": "off"
+    "no-undef": "off",
+    "react/prop-types": "off"
   },
   "parser": "@typescript-eslint/parser"
 }

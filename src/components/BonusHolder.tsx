@@ -9,6 +9,7 @@ import { type MeshProps, useFrame } from '@react-three/fiber'
 import type * as THREE from 'three'
 import Bonus, { type BonusHandler } from './Bonus'
 import { GAME_SETTINGS } from '../GameSettings'
+import ParticleHolder, { type ParticleHolderHandle } from './ParticleHolder'
 
 interface BonusHolderProps extends MeshProps {}
 
@@ -29,13 +30,10 @@ const BonusHolder = React.forwardRef<BonusHolderHandle, BonusHolderProps>((props
   // const bonusPool = useRef<BonusData[]>([])
   const lastCleanup = useRef(0)
   const nextKey = useRef(0)
+  const particleHolderRef = useRef<ParticleHolderHandle>(null)
 
   useImperativeHandle(ref, () => ({
     spawnBonuses() {
-      // console.log(
-      //   `spawning bonuses. current bonuses: ${bonuses.current.length}; bonuses pool: ${bonusPool.current.length}`
-      // )
-
       if (bonuses.length >= 30) {
         return
       }
@@ -92,12 +90,17 @@ const BonusHolder = React.forwardRef<BonusHolderHandle, BonusHolderProps>((props
         const diffPos = position.clone().sub(bonus.ref.current.mesh.position.clone())
         const d = diffPos.length()
         if (d < GAME_SETTINGS.bonusDistanceTolerance) {
-          // console.log(`collision: d=${d}`)
           // bonusPool.current.push(bonuses.current.splice(i, 1)[0])
-          // changed = true
           // particlesHolder.spawnParticles(coin.mesh.position.clone(), 5, 0x009999, 0.8)
           // addEnergy()
           // --i
+          particleHolderRef.current?.spawnParticles(
+            bonus.ref.current.mesh.position.clone(),
+            1,
+            0x009999,
+            // 0.8
+            2
+          )
         } else {
           keep.push(bonus)
         }
@@ -136,6 +139,7 @@ const BonusHolder = React.forwardRef<BonusHolderHandle, BonusHolderProps>((props
   return (
     <mesh {...props} receiveShadow={true} castShadow={true}>
       {bonuses.map((bonus) => bonus.element)}
+      <ParticleHolder ref={particleHolderRef} />
     </mesh>
   )
 })

@@ -6,6 +6,7 @@ import Sea from './Sea'
 import Sky from './Sky'
 import BonusHolder, { type BonusHolderHandle } from './BonusHolder'
 import { GAME_SETTINGS } from '../GameSettings'
+import ParticleHolder, { type ParticleHolderHandle } from './ParticleHolder'
 
 function normalize(v: number, vmin: number, vmax: number, tmin: number, tmax: number) {
   const nv = Math.max(Math.min(v, vmax), vmin)
@@ -99,7 +100,7 @@ export default function World(_props: WorldProps) {
     // GAME_SETTINGS.baseSpeed +=
     //   (GAME_SETTINGS.targetBaseSpeed - GAME_SETTINGS.baseSpeed) * delta * 0.02
     // GAME_SETTINGS.speed = GAME_SETTINGS.baseSpeed * GAME_SETTINGS.planeSpeed
-    GAME_SETTINGS.speed = 1
+    GAME_SETTINGS.speed = 0.4
 
     const camera = state.camera as THREE.PerspectiveCamera
     // camera.fov = normalize(state.mouse.x, -1, 1, 40, 80)
